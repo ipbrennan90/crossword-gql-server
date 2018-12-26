@@ -13,6 +13,13 @@ class PuzzleAPI extends RESTDataSource {
       : []
   }
 
+  async getPuzzleById(puzzleId) {
+    const res = await this.get('puzzles', { puzzle_id: puzzleId })
+    return res && res.data.length
+      ? res.data.map(p => this.puzzleReducer(p))
+      : []
+  }
+
   puzzleReducer(puzzle) {
     return {
       id: puzzle.id,
